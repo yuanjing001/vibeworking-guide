@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vitepress'
+import { stripBase } from '../content-map'
 
 const route = useRoute()
 const progress = ref(0)
 let ticking = false
 
-const visible = computed(() => route.path !== '/' && !route.path.includes('404'))
+const visible = computed(() => {
+  const path = stripBase(route.path)
+  return path !== '/' && !path.includes('404')
+})
 
 function measure() {
   const article = document.querySelector('.vp-doc')
@@ -21,7 +25,9 @@ function measure() {
 function onScroll() {
   if (ticking) return
   ticking = true
-  window.requestAnimationFrame(measure)
+  // 用 setTimeout 而非 requestAnimationFrame:rAF 在后台标签页会挂起,
+  // 用户切回前台时进度条会长时间停在旧值。
+  window.setTimeout(measure, 80)
 }
 
 onMounted(() => {

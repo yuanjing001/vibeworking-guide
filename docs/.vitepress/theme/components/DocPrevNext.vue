@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, withBase } from 'vitepress'
-import { contentMap, normalizePath } from '../content-map'
+import { contentMap, normalizePath, stripBase } from '../content-map'
 
 const route = useRoute()
 
 const index = computed(() =>
-  contentMap.findIndex((item) => item.path === normalizePath(route.path))
+  contentMap.findIndex((item) => item.path === normalizePath(stripBase(route.path)))
 )
 const prev = computed(() => (index.value > 0 ? contentMap[index.value - 1] : null))
 const next = computed(() =>

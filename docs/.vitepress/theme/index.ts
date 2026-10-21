@@ -1,6 +1,7 @@
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import GiscusComment from './components/GiscusComment.vue'
+import BackToTop from './components/BackToTop.vue'
 import DocBreadcrumb from './components/DocBreadcrumb.vue'
 import DocPrevNext from './components/DocPrevNext.vue'
 import LearningMap from './components/LearningMap.vue'
@@ -15,6 +16,8 @@ export default {
       'layout-top': () => h(ReadingProgress),
       'doc-before': () => h(DocBreadcrumb),
       'doc-footer-before': () => h(DocPrevNext),
+      // 回到顶部:全站浮动,首页与 404 不显示
+      'layout-bottom': () => h(BackToTop),
     })
   },
   enhanceApp({ app }) {

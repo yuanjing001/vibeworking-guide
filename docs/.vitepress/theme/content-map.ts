@@ -1,6 +1,8 @@
 // 阅读顺序与页面归属:导航的「内容顺序」只在这里定义一次。
 // 顶部导航负责全局可达,这里负责「读到这里,接下来读什么」。
 
+import { withBase } from 'vitepress'
+
 export interface ContentMapItem {
   path: string
   text: string
@@ -48,7 +50,19 @@ export function normalizePath(path: string): string {
   return normalized || '/'
 }
 
+// 浏览器里 route.path 带 base 前缀(如 /vibeworking-guide/playbook/weekly-report),
+// 而 contentMap 存的是站点内路径(/playbook/weekly-report),两边要对齐后才能匹配。
+// withBase('/') 能拿回 base 本身,且它读的是模块级 siteDataRef,不像 useData() 依赖 inject,
+// 因此在 computed getter 里调用也安全。
+export function stripBase(path: string): string {
+  const base = withBase('/')
+  if (base && base !== '/' && path.startsWith(base)) {
+    return path.slice(base.length - 1) || '/'
+  }
+  return path
+}
+
 export function findContentItem(path: string): ContentMapItem | undefined {
-  const normalized = normalizePath(path)
+  const normalized = normalizePath(stripBase(path))
   return contentMap.find((item) => item.path === normalized)
 }
