@@ -18,22 +18,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      # pnpm/action-setup 自带 cache,不能与 setup-node 的 cache: pnpm 混用,
-      # 且必须在 setup-node 之前执行 —— 否则 setup-node 找不到 pnpm 可执行文件。
+      # pnpm/action-setup 自带缓存,不要同时开 setup-node 的 cache: pnpm。
+      # 版本不在这里指定 —— pnpm/action-setup 会读 package.json 的 packageManager 字段,
+      # 两处都写会触发 "Multiple versions of pnpm specified" 并直接失败。
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
-          version: 9
           cache: true
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
