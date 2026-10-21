@@ -174,4 +174,4 @@ prerequisites: []
 2. 能归入现有 5 层架构中的某一层
 3. 有明确的适用场景,最好带一个真实任务
 
-贡献方式见 [GitHub 仓库](https://github.com/yuanjing001/vibe-work-guide)。内容以 CC BY-NC-SA 4.0 开源,站点代码以 MIT 发布,欢迎 PR。
+贡献方式见 [GitHub 仓库](https://github.com/yuanjing001/vibeworking-guide)。内容以 CC BY-NC-SA 4.0 开源,站点代码以 MIT 发布,欢迎 PR。

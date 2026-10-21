@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { withBase } from 'vitepress'
+
 interface MapTask {
   tag: string
   tone: string
@@ -155,7 +157,7 @@ const stages: MapStage[] = [
     </div>
 
     <div class="lm-route">
-      <a class="lm-start" href="/concepts">
+      <a class="lm-start" :href="withBase('/concepts')">
         <span class="lm-start-dot" aria-hidden="true" />
         <span class="lm-start-body">
           <strong>起点 · 基础认知</strong>
@@ -181,7 +183,7 @@ const stages: MapStage[] = [
               v-if="task.href"
               class="lm-task"
               :style="{ '--tag': task.tone }"
-              :href="task.href"
+              :href="withBase(task.href)"
             >
               <span class="lm-task-tag">{{ task.tag }}</span>
               <strong>{{ task.text }}</strong>

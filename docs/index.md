@@ -19,21 +19,21 @@ hero:
 ## 学习顺序
 
 <div class="stage-grid">
-  <a class="stage-card stage-1" href="/concepts">
+  <a class="stage-card stage-1" href="/vibeworking-guide/concepts">
     <span class="stage-num">第 1 部分 · 1-2 小时</span>
     <strong>基础认知</strong>
     <span class="stage-slogan">先搞懂人机分工、AI 会编、什么必须你判断</span>
     <span class="stage-deliver">产出:一个真实的、能交付的产出</span>
     <span class="stage-link">从基础认知开始 →</span>
   </a>
-  <a class="stage-card stage-2" href="/tool-mastery">
+  <a class="stage-card stage-2" href="/vibeworking-guide/tool-mastery">
     <span class="stage-num">第 2 部分 · 1-2 周</span>
     <strong>工具主线</strong>
     <span class="stage-slogan">选 1-2 个主流工具,从「会用」练到「能自动化」</span>
     <span class="stage-deliver">产出:模板 + 避坑清单 + 自动化流程</span>
     <span class="stage-link">进入工具主线 →</span>
   </a>
-  <a class="stage-card stage-3" href="/safety">
+  <a class="stage-card stage-3" href="/vibeworking-guide/safety">
     <span class="stage-num">第 3 部分 · 持续</span>
     <strong>补充与实战</strong>
     <span class="stage-slogan">安全与验证、方法论、真实任务,把能力变成交付</span>
@@ -49,7 +49,7 @@ hero:
 手上已经有明确的活要交?跳过顺序,先做完再说。做完再回来补方法,你会更有体感。
 
 <div class="outcome-grid">
-  <a class="outcome-card is-live" href="/playbook/weekly-report">
+  <a class="outcome-card is-live" href="/vibeworking-guide/playbook/weekly-report">
     <span class="outcome-track">写作 · 实战</span>
     <strong>一份能交差的周报</strong>
     <span class="outcome-desc">方法篇 + 工具篇 + 提示词模板 + 验收清单</span>
@@ -67,19 +67,19 @@ hero:
     <span class="outcome-desc">批量清洗、统计、可视化,数字能回源</span>
     <span class="outcome-status">剧本筹备中</span>
   </div>
-  <a class="outcome-card is-live" href="/playbook/add-feature">
+  <a class="outcome-card is-live" href="/vibeworking-guide/playbook/add-feature">
     <span class="outcome-track">工程 · 实战</span>
     <strong>一个带测试的新功能</strong>
     <span class="outcome-desc">Plan → 实现 → 测试 → review 完整走一遍</span>
     <span class="outcome-status">60-90 分钟 · 剧本已上线 →</span>
   </a>
-  <a class="outcome-card is-live" href="/playbook/fix-bug">
+  <a class="outcome-card is-live" href="/vibeworking-guide/playbook/fix-bug">
     <span class="outcome-track">工程 · 实战</span>
     <strong>一个修好的 Bug</strong>
     <span class="outcome-desc">先稳定复现,再定位修复,最后防复发</span>
     <span class="outcome-status">30-60 分钟 · 剧本已上线 →</span>
   </a>
-  <a class="outcome-card is-live" href="/playbook/refactor">
+  <a class="outcome-card is-live" href="/vibeworking-guide/playbook/refactor">
     <span class="outcome-track">工程 · 实战</span>
     <strong>一次安全的重构</strong>
     <span class="outcome-desc">行为零变化,测试全绿,每步可回滚</span>
@@ -117,4 +117,4 @@ hero:
 - 学习顺序与验收标准:[学习路径](/learning-map)
 - 把工具用透:[工具主线](/tool-mastery)
 - 站点怎么组织、现在做到哪:[体系说明](/about)
-- 内容以 CC BY-NC-SA 4.0 开源,站点代码以 MIT 发布:[GitHub 仓库](https://github.com/yuanjing001/vibe-work-guide)
+- 内容以 CC BY-NC-SA 4.0 开源,站点代码以 MIT 发布:[GitHub 仓库](https://github.com/yuanjing001/vibeworking-guide)

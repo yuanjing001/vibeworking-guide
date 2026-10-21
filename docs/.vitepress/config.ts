@@ -8,6 +8,10 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
 
+  // 部署到 https://yuanjing001.github.io/vibeworking-guide/ 时,所有资源与站内链接
+  // 需要带 /vibeworking-guide/ 前缀,否则静态资源会 404。
+  base: '/vibeworking-guide/',
+
   // 默认主题配置
   themeConfig: {
     nav: [
@@ -68,7 +72,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/yuanjing001/vibe-work-guide' },
+      { icon: 'github', link: 'https://github.com/yuanjing001/vibeworking-guide' },
     ],
 
     logo: '/logo.svg',
@@ -78,7 +82,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/yuanjing001/vibe-work-guide/edit/main/docs/:path',
+      pattern: 'https://github.com/yuanjing001/vibeworking-guide/edit/main/docs/:path',
       text: '在 GitHub 上编辑此页',
     },
 
@@ -100,7 +104,7 @@ export default defineConfig({
     // Giscus 评论:在 GitHub 仓库创建后,到 https://giscus.app 生成配置,
     // 把下面对象取消注释并填入实际值即可启用。
     // giscusConfig: {
-    //   repo: 'yuanjing001/vibe-work-guide',
+    //   repo: 'yuanjing001/vibeworking-guide',
     //   repoId: 'R_xxxxxx',
     //   category: 'Announcements',
     //   categoryId: 'DIC_xxxxxx',

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRoute } from 'vitepress'
+import { useRoute, withBase } from 'vitepress'
 import { contentMap, normalizePath } from '../content-map'
 
 const route = useRoute()
@@ -23,14 +23,14 @@ const next = computed(() =>
     :class="{ 'single-next': !prev, 'single-prev': !next }"
     aria-label="继续阅读"
   >
-    <a v-if="prev" class="doc-pager-link prev" :href="prev.path">
+    <a v-if="prev" class="doc-pager-link prev" :href="withBase(prev.path)">
       <span class="label">← 上一篇</span>
       <span class="title">{{ prev.text }}</span>
       <span class="group">{{ prev.group }}</span>
     </a>
     <span v-else />
 
-    <a v-if="next" class="doc-pager-link next" :href="next.path">
+    <a v-if="next" class="doc-pager-link next" :href="withBase(next.path)">
       <span class="label">下一篇 →</span>
       <span class="title">{{ next.text }}</span>
       <span class="group">{{ next.group }}</span>

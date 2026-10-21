@@ -22,19 +22,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      # pnpm/action-setup 自带 cache,不能与 setup-node 的 cache: pnpm 混用,
+      # 且必须在 setup-node 之前执行 —— 否则 setup-node 找不到 pnpm 可执行文件。
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-
-      - name: Setup pnpm
-        run: npm install -g pnpm@9
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Check frontmatter metadata
+        run: pnpm check:meta
+
       - name: Build VitePress site
-        run: pnpm docs:build
+        run: pnpm vitepress build docs
 
       - uses: actions/upload-pages-artifact@v3
         with:
