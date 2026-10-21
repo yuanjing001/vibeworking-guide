@@ -1,0 +1,19 @@
+{
+  "name": "vibe-work-guide",
+  "version": "0.3.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Vibe Working 人机协同指南 · 泛职场 AI 协同 · 方法优先、不按职业分轨 · 5 层架构",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "check:meta": "node scripts/check-frontmatter.mjs",
+    "docs:build": "pnpm check:meta && vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3",
+    "vue": "^3.5.13"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

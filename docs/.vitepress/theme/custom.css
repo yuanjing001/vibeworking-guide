@@ -1,0 +1,395 @@
+/* 品牌色:Indigo,冷色中性,不抢代码高亮的注意力 */
+:root {
+  --vp-c-brand-1: #6366f1;
+  --vp-c-brand-2: #4f46e5;
+  --vp-c-brand-3: #4338ca;
+  --vp-c-brand-soft: rgba(99, 102, 241, 0.14);
+}
+
+/* 代码块字体略大、行高更松 */
+.vp-doc div[class*='language-'] code,
+.vp-doc div[class*='language-'] pre {
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+/* 链接 hover 颜色与品牌色一致 */
+.vp-doc a:hover {
+  color: var(--vp-c-brand-2);
+}
+
+/* 表格更紧凑 */
+.vp-doc table {
+  font-size: 14px;
+}
+
+.vp-doc th,
+.vp-doc td {
+  padding: 8px 12px;
+}
+
+/* ── 首页 Hero:标题不折行 ─────────────────────────────
+   VitePress 默认样式:
+     .name / .text  { max-width: 392px; white-space: pre-wrap }
+   中文标题在 392px 内必然折行(截图里的现象)。
+
+   解法:放开 max-width + 改 white-space,不删字不改文案。
+   同为 min-width:640px 媒体查询、特异性相同,靠源码顺序覆盖。 */
+@media (min-width: 640px) {
+  .VPHomeHero .name,
+  .VPHomeHero .text {
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  .VPHomeHero .text {
+    font-size: clamp(30px, 3.4vw, 46px);
+  }
+
+  /* tagline 同样放开,避免副标题折行 */
+  .VPHomeHero .tagline {
+    max-width: none;
+  }
+}
+
+/* 极窄屏放不下时恢复换行,避免横向溢出 */
+@media (max-width: 639px) {
+  .VPHomeHero .name,
+  .VPHomeHero .text,
+  .VPHomeHero .tagline {
+    max-width: none;
+    white-space: normal;
+  }
+
+  .VPHomeHero .text {
+    font-size: 30px;
+  }
+}
+
+/* ── 顶部导航:项数较多时避免挤成两行 ─────────────────── */
+.VPNavBarMenuLink,
+.VPNavBarMenuGroup {
+  white-space: nowrap;
+}
+
+/* ── 中文页面标题避免在词中间折行 ─────────────────────── */
+.VPDoc .title {
+  word-break: keep-all;
+}
+
+/* ── 首页:产出卡 / 阶段卡 ───────────────────────────────
+   首页正文里用纯 HTML + 这两个网格类,避免为了卡片引入
+   自定义 Vue 组件。先保证信息结构,视觉以后再加。 */
+.outcome-grid,
+.stage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0 28px;
+}
+
+.outcome-card,
+.stage-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1) !important;
+  text-decoration: none !important;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+a.outcome-card:hover,
+a.stage-card:hover {
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-2px);
+}
+
+.outcome-card.is-pending {
+  opacity: 0.72;
+}
+
+.outcome-track,
+.stage-num {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--vp-c-brand-1);
+}
+
+.outcome-card strong,
+.stage-card strong {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.outcome-desc,
+.stage-slogan,
+.stage-deliver {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+}
+
+.outcome-status,
+.stage-link {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+}
+
+.outcome-card.is-live .outcome-status,
+.stage-link {
+  color: var(--vp-c-brand-1);
+}
+
+.stage-card {
+  border-top: 3px solid var(--vp-c-brand-1);
+}
+
+.stage-card.stage-2 {
+  border-top-color: #8b5cf6;
+}
+
+.stage-card.stage-3 {
+  border-top-color: #0ea5e9;
+}
+
+@media (max-width: 959px) {
+  .outcome-grid,
+  .stage-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .outcome-grid,
+  .stage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 内容优先的阅读外壳 ─────────────────────────────────
+   去掉左侧栏后,页面只有「顶部导航 + 正文 + 可选右侧大纲」。
+   导航负责全局可达,正文自己负责阅读顺序(面包屑 + 上一篇/下一篇)。 */
+
+/* 顶部阅读进度条 */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 2px;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--vp-c-brand-1), #8b5cf6);
+  pointer-events: none;
+}
+
+/* 面包屑:只显示「首页 / 分组」,当前页面标题交给 h1 */
+.doc-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--vp-c-text-3);
+}
+
+.doc-breadcrumb a {
+  color: var(--vp-c-text-3);
+  text-decoration: none;
+}
+
+.doc-breadcrumb a:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.doc-breadcrumb .sep {
+  opacity: 0.5;
+}
+
+/* 上一篇 / 下一篇:用卡片代替默认侧栏 pager */
+.doc-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.doc-pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1) !important;
+  text-decoration: none !important;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.doc-pager-link:hover {
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-2px);
+}
+
+.doc-pager-link .label {
+  font-size: 12px;
+  color: var(--vp-c-brand-1);
+}
+
+.doc-pager-link .title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.doc-pager-link .group {
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+}
+
+.doc-pager-link.next {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.doc-pager.single-next .doc-pager-link.next,
+.doc-pager.single-prev .doc-pager-link.prev {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 639px) {
+  .doc-pager {
+    grid-template-columns: 1fr;
+  }
+
+  .doc-pager-link.next {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* 正文排版:更宽的阅读区、更舒展的标题与段落 */
+@media (min-width: 960px) {
+  .VPDoc:not(.has-sidebar) .container {
+    max-width: 1120px;
+  }
+
+  .VPDoc.has-aside .content-container {
+    max-width: 760px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .VPDoc:not(.has-sidebar) .container {
+    max-width: 1180px;
+  }
+
+  .VPDoc.has-aside .content-container {
+    max-width: 800px;
+  }
+}
+
+.vp-doc h1 {
+  font-size: 34px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.vp-doc h2 {
+  margin-top: 56px;
+  padding-top: 28px;
+  font-size: 24px;
+}
+
+.vp-doc h3 {
+  margin-top: 36px;
+  font-size: 19px;
+}
+
+.vp-doc p,
+.vp-doc li {
+  font-size: 16.5px;
+  line-height: 1.8;
+}
+
+.vp-doc blockquote {
+  border-left: 3px solid var(--vp-c-brand-1);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 18px;
+  background: var(--vp-c-bg-soft);
+}
+
+.vp-doc blockquote > p {
+  font-size: 15.5px;
+  color: var(--vp-c-text-2);
+}
+/* 地图里的阶段锚点跳转时留出顶部导航空间 */
+.vp-doc [id] {
+  scroll-margin-top: calc(var(--vp-nav-height) + 24px);
+}
+
+/* ── 首页:改写前后对比 ───────────────────────────────── */
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0 24px;
+}
+
+.proof-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+}
+
+.proof-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.proof-card p {
+  margin: 0 !important;
+  font-size: 14.5px !important;
+  line-height: 1.75 !important;
+}
+
+.proof-card small {
+  margin-top: auto;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+}
+
+.proof-card.is-bad {
+  border-left: 3px solid #ef4444;
+}
+
+.proof-card.is-bad .proof-label {
+  color: #ef4444;
+}
+
+.proof-card.is-good {
+  border-left: 3px solid #10b981;
+}
+
+.proof-card.is-good .proof-label {
+  color: #10b981;
+}
+
+@media (max-width: 760px) {
+  .proof-grid {
+    grid-template-columns: 1fr;
+  }
+}
